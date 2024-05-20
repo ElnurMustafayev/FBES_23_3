@@ -1,0 +1,15 @@
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\bin\Debug\net8.0\GettingStartedApp.exe
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\bin\Debug\net8.0\GettingStartedApp.deps.json
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\bin\Debug\net8.0\GettingStartedApp.runtimeconfig.json
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\bin\Debug\net8.0\GettingStartedApp.dll
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\bin\Debug\net8.0\GettingStartedApp.pdb
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.AssemblyInfoInputs.cache
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.AssemblyInfo.cs
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.csproj.CoreCompileInputs.cache
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.sourcelink.json
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.dll
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\refint\GettingStartedApp.dll
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.pdb
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\GettingStartedApp.genruntimeconfig.cache
+C:\Users\mustafayev_e\Desktop\Code\FBES_23_3\C#\GettingStartedApp\obj\Debug\net8.0\ref\GettingStartedApp.dll
