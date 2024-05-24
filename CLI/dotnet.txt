@@ -1,3 +1,7 @@
 dotnet
+dotnet run
 
 dotnet --list-sdks
+
+dotnet new console
+dotnet new console --name ProjectName
