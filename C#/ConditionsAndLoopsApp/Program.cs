@@ -138,6 +138,9 @@ switch(operationInput)
 }
 */
 
+
+/*
+
 const int menuMinIndex = 0;
 const int menuMaxIndex = 2;
 int currentIndex = menuMinIndex;
@@ -203,3 +206,69 @@ while(true)
     }
 }
 
+*/
+
+
+
+//while (true)
+//{
+//    continue;
+//    break;
+//}
+
+
+//for(Console.WriteLine("A"); true; Console.WriteLine("C"))
+//{
+//    Console.WriteLine("D");
+//}
+
+
+//for(a; b; c) { d }
+// a b d c b d c
+
+
+
+//int counter = 0;
+
+//foreach (var item in "Hello World")
+//{
+//    if(counter > 5)
+//        break;
+//    Console.WriteLine($"#{counter++}: {item}");
+//}
+
+
+
+// необходимо создать консольное приложение,
+// в котором от лица пользователя будет угадываться слово
+
+// допустим:
+// в приложении загадано слово "Paint"
+// пользователь пишет слова до тех пор, пока не отгадает слово
+
+// доп. условия:
+// у пользователя есть максимум 3 попытки
+
+
+string secretWord = "Paint";
+int maxTries = 3;
+bool won = false;
+
+for (int tryCounter = 0; won == false && tryCounter < maxTries; tryCounter++)
+{
+    Console.Clear();
+    Console.WriteLine($"{tryCounter + 1} of {maxTries} try...");
+    Console.Write("Input word: ");
+    var word = Console.ReadLine();
+
+    if(word == secretWord)
+    {
+        Console.WriteLine("YOU WIN!");
+        won = true;
+    }
+}
+
+if(!won)
+{
+    Console.WriteLine("YOU LOSE!");
+}
