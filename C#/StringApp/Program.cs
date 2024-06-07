@@ -120,12 +120,51 @@ foreach (var numberStr in numberStrs)
 }
 */
 
+
+string text = " My  test   text";
+
+// " My  test   text";
+// "", "My", "", "test", "", "", "text"
+
+/*
+void PrintWords(string[] words)
+{
+    for (int i = 0; i < words.Length; i++)
+    {
+        //Console.WriteLine(words[i] == string.Empty);
+
+        //if (words[i] != string.Empty && words[i] != null)
+        if(string.IsNullOrWhiteSpace(words[i]) == false)
+            Console.WriteLine($"{i + 1}: (length: {words[i].Length}) *{words[i]}*");
+    }
+}
+
+//string[] words = text.Split();
+
+string[] words =
+{
+    "Test",
+    "qwerty",
+    null,
+    "hi"
+};
+
+PrintWords(words);
+*/
+
+
+
+
+
 /*
 string word = "Test";
-var result = word.Substring(1, 2);
+//var result = word.Substring(1, 2);
+//var result = word[1..3];
+var result = word[..3];
 
 Console.WriteLine(result);
 */
+
 
 /*
 string word = "Te12st";
@@ -151,7 +190,7 @@ Console.WriteLine($"*{fullname}*");
 // AZE123456 - AZE; length: 9;  digits: 6
 
 
-
+/*
 while(true)
 {
     Console.Write("Input serial number: ");
@@ -196,3 +235,4 @@ while(true)
         Console.WriteLine(errorMessage);
     }
 }
+*/
