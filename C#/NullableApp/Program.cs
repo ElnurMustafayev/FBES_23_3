@@ -88,11 +88,55 @@ decimal? wallet = null;
 PrintMoney(wallet);
 */
 
+/*
+string[] names =
+{
+    "Ann", "Bob", "John"
+};
 
+string? GetRandomName()
+{
+    return Random.Shared.Next(0, 2) == 1
+        ? null
+        : names[Random.Shared.Next(0, names.Length)];
+}
+#pragma warning disable CS8600
 
+string name = null;
 
+string result1 = name!.ToUpper();
+string? result2 = name?.ToUpper();
 
-// bool result = HasVisa(double? money, bool? IsMarried);
+string result3 = result2 ?? "Unknown";
 
-// Виза выдаётся только в том случае,
-// когда у человека +20к USD и когда он не холост
+//Console.WriteLine(result2 ?? "Unknown");
+Console.WriteLine(result2 ?? result1 ?? "Test" ?? result2);
+
+#pragma warning restore CS8600
+
+string test = "test";
+Console.WriteLine(test?.Length);
+
+int? num = 100;
+var result = num?.ToString();
+*/
+
+//Console.WriteLine(result != null ? result : "Unknown");
+
+/*
+if (result != null)
+{
+    Console.WriteLine(result);
+}
+else
+{
+    Console.WriteLine("Unknown");
+}
+*/
+
+/*
+if (name != null)
+{
+    Console.WriteLine(name.ToUpper());
+}
+*/
