@@ -63,7 +63,7 @@ Console.WriteLine(areEqual);
 
 
 
-
+/*
 var book = new Book(
     title: "Test",
     author: new Author("Bob", "Marley"),
@@ -73,3 +73,60 @@ var book = new Book(
 //book.PrintInfo();
 string bookInfo = book.ToString();
 Console.WriteLine(bookInfo);
+*/
+
+
+/*
+void MyMethod(object obj)
+{
+    if(obj.GetType() == typeof(string))
+    {
+        Console.WriteLine(obj.ToString().ToUpper());
+    }
+    else if(obj.GetType() == typeof(Author))
+    {
+        var author = (Author)obj;
+        var book = author.WriteBook();
+        Console.WriteLine(book);
+    }
+    else
+    {
+        Console.WriteLine("ANOTHER TYPE");
+    }
+}
+
+MyMethod("asdasd");
+MyMethod(123);
+var author = new Author("Bob", "Marley");
+MyMethod(author);
+*/
+
+
+
+Book GetBook(object obj)
+{
+    return obj is Author author
+        ? author.WriteBook()
+        : throw new Exception("SEND AUTHOR!!!");
+
+    //if(obj is Author author)
+    //{
+    //    return author.WriteBook();
+    //}
+    //throw new Exception("SEND AUTHOR!!!");
+
+
+    //if(obj is not Author)
+    //{
+    //    throw new Exception("SEND AUTHOR!!!");
+    //}
+
+    //return (obj as Author)?.WriteBook();// ?? throw new Exception("SEND AUTHOR!!!");
+
+    //return ((Author)obj).WriteBook();
+}
+
+//var author = new Author("Bob", "Marley");
+//Console.WriteLine(GetBook(author));
+
+GetBook("test");
