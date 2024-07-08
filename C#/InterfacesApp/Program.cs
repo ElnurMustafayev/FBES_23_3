@@ -20,7 +20,7 @@ obj.Method();
 */
 
 
-
+/*
 Duck duck = new Duck();
 duck.Fly();
 duck.Walk();
@@ -40,3 +40,22 @@ IFliable[] fliables =
 {
     duck, parrot
 };
+*/
+
+/*
+ISwimmable[] swimmables =
+{
+    new A(), new B(), new C()
+};
+
+foreach (var swimmable in swimmables)
+{
+    swimmable.Swim();
+    swimmable.SomethingDefault();
+}
+*/
+
+//new C().Swim();
+
+ISwimmable obj = new C();
+obj.Swim();
