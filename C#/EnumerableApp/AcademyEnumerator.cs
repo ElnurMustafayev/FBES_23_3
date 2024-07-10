@@ -44,15 +44,15 @@ class AcademyEnumerator : IEnumerator<Student>
 {
     private const int counterStartValue = -1;
     private int counter = counterStartValue;
-    private readonly Student[] student;
+    private readonly Student[] students;
 
-    public Student Current => this.student[counter];
+    public Student Current => this.students[counter];
 
-    object IEnumerator.Current => this.student[counter];
+    object IEnumerator.Current => this.students[counter];
 
-    public AcademyEnumerator(Student[] student)
+    public AcademyEnumerator(Student[] students)
     {
-        this.student = student;
+        this.students = students;
     }
 
     public void Dispose() { }
@@ -61,7 +61,7 @@ class AcademyEnumerator : IEnumerator<Student>
     {
         this.counter++;
 
-        if(this.counter >= this.student.Length)
+        if(this.counter >= this.students.Length)
         {
             this.Reset();
             return false;

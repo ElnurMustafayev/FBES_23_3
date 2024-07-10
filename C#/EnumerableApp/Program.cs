@@ -7,7 +7,9 @@ var students = new Student[]
     new("John", "White"),
 };
 
-var academy = new Academy(students);
+var enumerable = new AcademyEnumerator(students);
+
+var academy = new Academy(students, enumerable);
 
 foreach (var student in academy)
 {
@@ -15,6 +17,33 @@ foreach (var student in academy)
 }
 
 
+
+
+
+
+/*
+var students = new Student[]
+{
+    new("Bob", "Marley"),
+    new("Ann", "Brown"),
+    new("John", "White"),
+};
+
+var academy = new Academy(students);
+
+var academyEnumerator = academy.GetEnumerator();
+
+while(academyEnumerator.MoveNext())
+{
+    var item = academyEnumerator.Current;
+}
+academyEnumerator.Reset();
+
+foreach (var student in academy)
+{
+    Console.WriteLine(student);
+}
+*/
 
 /*
  
