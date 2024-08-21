@@ -4,4 +4,6 @@ dotnet run
 dotnet --list-sdks
 
 dotnet new console
-dotnet new console --name ProjectName
+dotnet new console --name <project_name>
+
+dotnet add package <package_name>
