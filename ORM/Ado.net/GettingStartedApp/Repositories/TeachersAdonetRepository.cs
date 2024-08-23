@@ -40,4 +40,21 @@ public class TeachersAdonetRepository : TeachersRepository
 
         return (int)result;
     }
+
+    public override bool Delete(int id)
+    {
+        string connectionString = "Server=localhost;Database=MyDatabase;User Id=admin;Password=admin;";
+
+        var connection = new SqlConnection(connectionString);
+        connection.Open();
+
+        var command = new SqlCommand(
+            cmdText: $"delete from Teachers where Id = {id}",
+            connection: connection
+        );
+
+        int affectedRowsCount = command.ExecuteNonQuery();
+
+        return affectedRowsCount > 0;
+    }
 }
