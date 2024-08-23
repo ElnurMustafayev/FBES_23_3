@@ -1,9 +1,7 @@
-﻿using System.Data.SqlClient;
-
-string connectionString = "Server=localhost;Database=MyDatabase;User Id=admin;Password=admin;";
-
-var connection = new SqlConnection(connectionString);
-connection.Open();
+﻿using GettingStartedApp.Entities;
+using GettingStartedApp.Repositories;
+using GettingStartedApp.Services;
+using System.Diagnostics;
 
 System.Console.WriteLine(@"Press key to continue:
 1 - add new teacher
@@ -12,37 +10,31 @@ System.Console.WriteLine(@"Press key to continue:
 var pressedKey = Console.ReadKey().Key;
 Console.Clear();
 
-if(pressedKey == ConsoleKey.D1) {
-    Console.WriteLine("New teacher's creating\n");
-    Console.Write("Input name: ");
-    var newTeacherName = Console.ReadLine();
-    Console.Write("Input salary: ");
-    double.TryParse(Console.ReadLine(), out double newTeacherSalary);
-    Console.Write("Input country: ");
-    var newTeacherCountry = Console.ReadLine();
+var repository = new TeachersAdonetRepository();
+var service = new TeachersService(repository);
 
-    var command = new SqlCommand(
-        cmdText: @$"insert into Teachers ([Name], [Salary], [CountryId]) 
-        values	('{newTeacherName}', {newTeacherSalary}, {newTeacherCountry})",
-        connection: connection
-    );
+switch (pressedKey)
+{
+    case ConsoleKey.D1:
+        var createdTeacher = service.AddTeacher(out bool wasCreated);
 
-    int affectedRowsCount = command.ExecuteNonQuery();
+        if (wasCreated)
+            System.Console.WriteLine($"Teacher '{createdTeacher.Name}' was added successfully!");
+        break;
 
-    if(affectedRowsCount > 0) {
-        System.Console.WriteLine($"Teacher '{newTeacherName}' was added successfully!");
-    }
+    case ConsoleKey.D2:
+        var count = service.GetTeachersCount();
+        System.Console.WriteLine($"Teachers' count: {count}");
+        break;
+
+    default:
+        System.Console.WriteLine($"No implementation for '{pressedKey}'!");
+        break;
 }
-else if(pressedKey == ConsoleKey.D2) {
-    var command = new SqlCommand(
-        cmdText: "select count(*) from Teachers",
-        connection: connection
-    );
 
-    object result = command.ExecuteScalar();
 
-    System.Console.WriteLine($"Teachers' count: {result}");
-}
-else {
-    System.Console.WriteLine($"No implementation for '{pressedKey}'!");
-}
+
+// Press key to continue:
+// 1 - add new teacher
+// 2 - get teachers' count
+// 3 - delete teacher by id
