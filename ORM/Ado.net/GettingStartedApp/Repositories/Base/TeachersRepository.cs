@@ -8,4 +8,5 @@ public abstract class TeachersRepository
     public abstract int Count();
     public abstract bool Delete(int id);
     public abstract IEnumerable<Teacher> Select();
+    public abstract IEnumerable<Teacher> Select(string name);
 }

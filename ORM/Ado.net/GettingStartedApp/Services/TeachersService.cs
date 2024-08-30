@@ -44,15 +44,8 @@ public class TeachersService
         return count;
     }
 
-    public bool DeleteTeacherById()
+    public bool DeleteTeacherById(int id)
     {
-        Console.Write("Input teacher id for delete: ");
-        var idStr = Console.ReadLine();
-
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(idStr);
-
-        int id = int.Parse(idStr);
-
         var wasDeleted = this.repository.Delete(id);
 
         return wasDeleted;
@@ -61,6 +54,18 @@ public class TeachersService
     public void PrintAllTeachers()
     {
         var teachers = this.repository.Select();
+
+        foreach (var teacher in teachers)
+        {
+            Console.WriteLine(teacher);
+        }
+    }
+
+    public void PrintTeachersByName(string? nameToSearch)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(nameToSearch);
+
+        var teachers = this.repository.Select(nameToSearch);
 
         foreach (var teacher in teachers)
         {

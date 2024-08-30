@@ -13,6 +13,7 @@ while (true)
 2 - get teachers' count
 3 - delete teacher by id
 4 - print all teachers
+5 - search by name
 0 - exit" + Environment.NewLine);
 
     var pressedKey = Console.ReadKey().Key;
@@ -33,12 +34,22 @@ while (true)
             break;
 
         case ConsoleKey.D3:
-            bool wasDeleted = service.DeleteTeacherById();
+            Console.Write("Input teacher id for delete: ");
+            var idStr = Console.ReadLine();
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(idStr);
+            int id = int.Parse(idStr);
+            bool wasDeleted = service.DeleteTeacherById(id);
             Console.WriteLine(wasDeleted ? "Teacher was successfully deleted!" : "Teacher not found!");
             break;
 
         case ConsoleKey.D4:
             service.PrintAllTeachers();
+            break;
+
+        case ConsoleKey.D5:
+            Console.Write("Name: ");
+            var nameToSearch = Console.ReadLine();
+            service.PrintTeachersByName(nameToSearch);
             break;
 
         case ConsoleKey.D0:
@@ -50,8 +61,3 @@ while (true)
     }
     Console.ReadKey(true);
 }
-
-
-
-
-// Get By Name (LIKE)
