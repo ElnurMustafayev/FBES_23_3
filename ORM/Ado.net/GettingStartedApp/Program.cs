@@ -1,4 +1,5 @@
-﻿using GettingStartedApp.Repositories;
+﻿using GettingStartedApp.Entities;
+using GettingStartedApp.Repositories;
 using GettingStartedApp.Services;
 
 var repository = new TeachersAdonetRepository();
@@ -11,6 +12,7 @@ while (true)
 1 - add new teacher
 2 - get teachers' count
 3 - delete teacher by id
+4 - print all teachers
 0 - exit" + Environment.NewLine);
 
     var pressedKey = Console.ReadKey().Key;
@@ -35,6 +37,10 @@ while (true)
             Console.WriteLine(wasDeleted ? "Teacher was successfully deleted!" : "Teacher not found!");
             break;
 
+        case ConsoleKey.D4:
+            service.PrintAllTeachers();
+            break;
+
         case ConsoleKey.D0:
             return;
 
@@ -47,26 +53,5 @@ while (true)
 
 
 
-/*
-string connectionString = "Server=localhost;Database=MyDatabase;User Id=admin;Password=admin;";
 
-var connection = new SqlConnection(connectionString);
-connection.Open();
-
-var command = new SqlCommand("select top 5 * from Teachers", connection);
-
-var reader = command.ExecuteReader();
-
-while (reader.Read())
-{
-    var currentTeacher = new Teacher
-    {
-        Id = reader.GetInt32(0),
-        Name = reader.GetString(1),
-        Salary = reader.GetDecimal(2),
-        CountryId = reader.GetInt32(3),
-    };
-
-    Console.WriteLine(currentTeacher);
-}
-*/
+// Get By Name (LIKE)

@@ -57,4 +57,14 @@ public class TeachersService
 
         return wasDeleted;
     }
+
+    public void PrintAllTeachers()
+    {
+        var teachers = this.repository.Select();
+
+        foreach (var teacher in teachers)
+        {
+            Console.WriteLine(teacher);
+        }
+    }
 }

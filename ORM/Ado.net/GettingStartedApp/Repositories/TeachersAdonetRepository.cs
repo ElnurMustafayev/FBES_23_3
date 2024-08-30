@@ -57,4 +57,33 @@ public class TeachersAdonetRepository : TeachersRepository
 
         return affectedRowsCount > 0;
     }
+
+    public override IEnumerable<Teacher> Select()
+    {
+        string connectionString = "Server=localhost;Database=MyDatabase;User Id=admin;Password=admin;";
+
+        var connection = new SqlConnection(connectionString);
+        connection.Open();
+
+        var command = new SqlCommand("select * from Teachers", connection);
+
+        var reader = command.ExecuteReader();
+
+        var teachers = new List<Teacher>();
+
+        while (reader.Read())
+        {
+            var currentTeacher = new Teacher
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Salary = reader.GetDecimal(2),
+                CountryId = reader.GetInt32(3),
+            };
+
+            teachers.Add(currentTeacher);
+        }
+
+        return teachers;
+    }
 }
