@@ -187,7 +187,7 @@ Console.WriteLine(result);
 
 
 
-
+/*
 using ThreadsApp;
 
 Thread GetTheOldestUser(User user)
@@ -219,3 +219,24 @@ Thread getTheOldestUserThread = GetTheOldestUser(user);
 getTheOldestUserThread.Join();
 
 Console.WriteLine(user);
+*/
+
+
+
+
+Thread thread1 = new Thread(() => {
+    Thread.Sleep(3000);
+    Console.WriteLine("Thread");
+});
+
+thread1.Start();
+
+Thread thread2 = new Thread(() => {
+    Console.WriteLine("Start");
+    Thread.Sleep(1000);
+    Console.WriteLine("Middle");
+    thread1.Join();
+    Console.WriteLine("End");
+});
+
+thread2.Start();
