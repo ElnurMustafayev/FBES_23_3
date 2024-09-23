@@ -68,9 +68,3 @@ users.Add(new User
 
 var usersJsonWithNewUser = JsonSerializer.Serialize(users);
 File.WriteAllText("users.json", usersJsonWithNewUser);
-
-// sql 
-
-
-
-// file

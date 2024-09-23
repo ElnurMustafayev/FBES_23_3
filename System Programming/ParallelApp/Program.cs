@@ -15,7 +15,7 @@
 //});
 
 
-
+/*
 using ParallelApp;
 
 
@@ -43,12 +43,26 @@ var users = new List<User>
 };
 
 ParallelPrintUsers(users);
+*/
 
 
 
 
+var nums = new int[]
+{
+    1,2,3,4,5,6,7,8,9
+};
 
+var parallelQuery = nums
+    .AsParallel()
+    .Where(num =>
+    {
+        Console.WriteLine(num);
+        return true;
+    });
 
-// ParallelSaveInJson(users);
-// 1. creates "{id}_{fullname}.json"
-// 2. write each user as JSON
+Thread.Sleep(5000);
+
+var result = parallelQuery.ToList();
+
+Console.WriteLine(result);
