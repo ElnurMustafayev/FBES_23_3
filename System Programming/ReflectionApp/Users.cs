@@ -25,5 +25,12 @@ public class User
         this.Lastname = lastname;
     }
 
+    public User()
+    {
+        this.Id = default;
+        this.Firstname = string.Empty;
+        this.Lastname = string.Empty;
+    }
+
     public override string ToString() => $"{Id} {Firstname} {Lastname} {Fullname}";
 }
