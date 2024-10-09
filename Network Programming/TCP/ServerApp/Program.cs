@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using SharedLib.Models;
+using System.Net;
 using System.Net.Sockets;
+using System.Text.Json;
 
 const int serverPort = 7070;
 IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
@@ -44,55 +46,71 @@ while(true)
         var streamWriter = new StreamWriter(tcpClientStream);
         var streamReader = new StreamReader(tcpClientStream);
 
-        await streamWriter.WriteLineAsync("Welcome to server! Input your username: ");
-        await streamWriter.FlushAsync();
+        string? username = null;
 
-        string? clientUsername;
-
-        // register user
         while (true)
         {
             try
             {
-                clientUsername = await streamReader.ReadLineAsync();
+                var clientRequestJson = await streamReader.ReadLineAsync();
 
-                ArgumentException.ThrowIfNullOrWhiteSpace(clientUsername);
+                var clientRequest = JsonSerializer.Deserialize<Operation<object>>(clientRequestJson);
 
-                clientUsername = clientUsername.Trim().ToLower();
-
-                if(clients.ContainsKey(clientUsername))
+                switch(clientRequest.OperationName)
                 {
-                    await streamWriter.WriteLineAsync($"Username '{clientUsername}' already exist! Try again: ");
-                    await streamWriter.FlushAsync();
-                    continue;
-                }
+                    case nameof(SetUsername):
+                        var setUsernameOperation = JsonSerializer.Deserialize<Operation<SetUsername>>(clientRequestJson);
 
-                await SendToAllAsync(clientUsername, $"Client {clientUsername} joined...");
-                clients.Add(clientUsername, tcpClient);
-                await streamWriter.WriteLineAsync($"Hi, {clientUsername}!");
-                await streamWriter.FlushAsync();
+                        if(username == null)
+                        {
+                            username = setUsernameOperation.Data.NewUsername.Trim().ToLower();
+
+                            if(clients.ContainsKey(username))
+                            {
+                                throw new ArgumentException($"Username '{username}' already taken!");
+                            }
+
+                            clients.Add(username, tcpClient);
+                            await SendToAllAsync(username, $"User '{username}' joined!");
+                        }
+                        else
+                        {
+                            var newUsername = setUsernameOperation.Data.NewUsername.Trim().ToLower();
+
+                            if(clients.ContainsKey(newUsername))
+                            {
+                                throw new ArgumentException($"Username '{newUsername}' already taken!");
+                            }
+
+                            clients.Remove(username);
+                            var notificationText = $"User '{username}' changed username to '{newUsername}'!";
+                            username = newUsername;
+                            clients.Add(username, tcpClient);
+
+                            await SendToAllAsync(username, notificationText);
+                        }
+                        break;
+                    case nameof(SendMessage):
+                        var sendMessageOperation = JsonSerializer.Deserialize<Operation<SendMessage>>(clientRequestJson);
+                        if(username == null)
+                        {
+                            throw new Exception($"Register your user!");
+                        }
+                        var text = sendMessageOperation.Data.Message;
+                        await SendToAllAsync(username, text);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch(IOException)
+            {
                 break;
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                await streamWriter.WriteLineAsync($"Error: '{ex.Message}'");
+                await streamWriter.WriteLineAsync($"{ex.GetType().Name}: {ex.Message}");
                 await streamWriter.FlushAsync();
-            }
-        }
-
-        while (true)
-        {
-            try
-            {
-                var clientMessage = await streamReader.ReadLineAsync();
-
-                await SendToAllAsync(clientUsername, clientMessage);
-            }
-            catch(IOException)
-            {
-                await SendToAllAsync(clientUsername, $"Client {clientUsername} left...");
-                clients.Remove(clientUsername);
             }
         }
     });

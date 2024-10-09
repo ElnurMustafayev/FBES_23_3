@@ -7,3 +7,9 @@ dotnet new console
 dotnet new console --name <project_name>
 
 dotnet add package <package_name>
+
+
+dotnet new sln --name <solution_name>
+dotnet sln list
+dotnet sln add <project_path>
+dotnet add reference <another_project_path>
