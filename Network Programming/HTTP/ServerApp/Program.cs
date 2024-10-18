@@ -18,9 +18,11 @@ while(true) {
     var context = await httpListener.GetContextAsync();
 
     var reader = new StreamReader(context.Request.InputStream);
+    //context.Request.QueryString["test"].First()
 
     var requestBodyStr = await reader.ReadToEndAsync();
 
+    System.Console.WriteLine();
     System.Console.WriteLine("RawUrl: " + context.Request.RawUrl);
     System.Console.WriteLine("ContentType: " + context.Request.ContentType);
     System.Console.WriteLine("HttpMethod: " + context.Request.HttpMethod);
