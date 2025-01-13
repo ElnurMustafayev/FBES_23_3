@@ -6,4 +6,7 @@ git push origin main            - публикует коммит
 git status                      - показывает список изменений
 git log                         - показывает список коммитов
 
+git branch -c <branch_name>	- создаёт ветку
+git checkout <branch_name>	- переход на ветку
+
 .gitignore
