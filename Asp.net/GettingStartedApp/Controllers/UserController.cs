@@ -1,21 +1,29 @@
 namespace GettingStartedApp.Controllers;
 
+using GettingStartedApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
+//[Route("/[controller]/[action]")]
+[Route("/[controller]")]
 public class UserController : ControllerBase
 {
     [HttpPost]
-    [Route("/user/create")]
-    public object CreateUser(string name, string surname) {
+    public object CreateUser([FromBody]User newUser) {
         return new {
-            Id = Guid.NewGuid()
+            Id = newUser.Id
         };
     }
 
-    [HttpGet]
-    [Route("/user/get")]
-    public object GetUser(Guid id) {
-        return new {
+    [HttpGet("{id}")]   // /user/123
+    //[HttpGet("/{id}")]  // /123
+    //[HttpGet("/[controller]/{id}")]
+    //[Route("/[controller]/{id}")] // /user/123
+    //[Route("/[controller]")] // /user?id=123
+    //[Route("/[controller]/[action]")]
+    //[Route("/[controller]/test/[action]")]
+    //[Route("/[controller]/[action]")]
+    public User GetUser(int id) {
+        return new User {
             Id = id,
             Name = "Bob",
             Surname = "Marley"
