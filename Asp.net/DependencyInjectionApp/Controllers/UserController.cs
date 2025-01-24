@@ -1,34 +1,43 @@
 namespace DependencyInjectionApp.Controllers;
 
+using System.Net;
+using DependencyInjectionApp.Exceptions;
 using DependencyInjectionApp.Models;
-using DependencyInjectionApp.Repositories;
+using DependencyInjectionApp.Repositories.Base;
 using Microsoft.AspNetCore.Mvc;
 
-// public class ElnurResult : ActionResult {
-//     public override void ExecuteResult(ActionContext context)
-//     {
-//         context.HttpContext.Response.StatusCode = 777;
-//         base.ExecuteResult(context);
-//     }
-// }
-
 [Route("api/[controller]")]
+[ProducesResponseType(400, Type = typeof(List<ValidationResponse>))]
+[ProducesResponseType(500)]
 public class UserController : ControllerBase
 {
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
-    public UserController()
+    public UserController(IUserRepository userRepository)
     {
-        this.userRepository = new UserRepository();
+        this.userRepository = userRepository;
+        System.Console.WriteLine($"CTOR UserController: {userRepository.GetHashCode()}");
     }
 
     [HttpPost]
-    public void CreateUser([FromBody]User user) {
-        userRepository.CreateUser(user);
+    [ProducesResponseType(200)]
+    public ActionResult CreateUser([FromBody]User user) {
+        try {
+            userRepository.CreateUser(user);
+
+            return base.Ok();
+        }
+        catch(ValidationException validationException) {
+            return base.BadRequest(validationException.validationResponseItems);
+        }
+        catch(Exception) {
+            return base.StatusCode((int)HttpStatusCode.InternalServerError);
+        }
     }
 
     [HttpGet]
     [Route("{id}")]
+    [ProducesResponseType(200, Type = typeof(User))]
     public ActionResult<User> GetUserById(int id) {
         var foundUser = userRepository.GetUserById(id);
         // var statusCode = foundUser != null 

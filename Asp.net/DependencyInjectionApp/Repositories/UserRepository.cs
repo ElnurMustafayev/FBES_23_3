@@ -1,13 +1,15 @@
 namespace DependencyInjectionApp.Repositories;
 
 using DependencyInjectionApp.Models;
+using DependencyInjectionApp.Repositories.Base;
 
-public class UserRepository
+public class UserRepository : IUserRepository
 {
-    private static List<User> Users;
+    private List<User> Users;
 
-    static UserRepository() {
+    public UserRepository() {
         Users = new List<User>();
+        System.Console.WriteLine($"CTOR: {nameof(UserRepository)}");
     }
     
     public void CreateUser(User user) {
