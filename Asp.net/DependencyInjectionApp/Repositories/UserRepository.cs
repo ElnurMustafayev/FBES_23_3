@@ -9,7 +9,7 @@ public class UserRepository : IUserRepository
 
     public UserRepository() {
         Users = new List<User>();
-        System.Console.WriteLine($"CTOR: {nameof(UserRepository)}");
+        System.Console.WriteLine($"CTOR: {nameof(UserRepository)} {this.GetHashCode()}");
     }
     
     public void CreateUser(User user) {

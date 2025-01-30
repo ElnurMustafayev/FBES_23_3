@@ -4,6 +4,7 @@ using System.Net;
 using DependencyInjectionApp.Exceptions;
 using DependencyInjectionApp.Models;
 using DependencyInjectionApp.Repositories.Base;
+using DependencyInjectionApp.Services.Base;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,19 +12,19 @@ using Microsoft.AspNetCore.Mvc;
 [ProducesResponseType(500)]
 public class UserController : ControllerBase
 {
-    private IUserRepository userRepository;
+    private readonly IUserService userService;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(IUserService userService, IUserRepository userRepository, IServiceProvider serviceProvider)
     {
-        this.userRepository = userRepository;
-        System.Console.WriteLine($"CTOR UserController: {userRepository.GetHashCode()}");
+        this.userService = userService;
+        System.Console.WriteLine($"CTOR: {nameof(UserController)} {this.GetHashCode()} {userRepository.GetHashCode()}");
     }
 
     [HttpPost]
     [ProducesResponseType(200)]
     public ActionResult CreateUser([FromBody]User user) {
         try {
-            userRepository.CreateUser(user);
+            //this.userService.SignUp(user);
 
             return base.Ok();
         }
@@ -39,17 +40,18 @@ public class UserController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(200, Type = typeof(User))]
     public ActionResult<User> GetUserById(int id) {
-        var foundUser = userRepository.GetUserById(id);
-        // var statusCode = foundUser != null 
-        //     ? HttpStatusCode.OK 
-        //     : HttpStatusCode.NotFound;
+        return Ok();
+        // var foundUser = userRepository.GetUserById(id);
+        // // var statusCode = foundUser != null 
+        // //     ? HttpStatusCode.OK 
+        // //     : HttpStatusCode.NotFound;
 
-        // base.HttpContext.Response.StatusCode = (int)statusCode;
+        // // base.HttpContext.Response.StatusCode = (int)statusCode;
 
-        if(foundUser == null) {
-            return base.NotFound();
-        }
+        // if(foundUser == null) {
+        //     return base.NotFound();
+        // }
 
-        return base.Ok(foundUser);
+        // return base.Ok(foundUser);
     }
 }
