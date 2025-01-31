@@ -48,13 +48,6 @@ builder.Services.AddTransient<IUserRepository>((serviceProvider) => {
 //     typeof(IUserRepository), 
 //     repoTypes.ElementAt(Random.Shared.Next(repoTypes.Length)));
 
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-app.MapControllers();
-
-app.Run();
 
 /*
 
@@ -67,3 +60,18 @@ CarBadRepository    -> throws exception
 чтобы каждый второй раз инджектился объект типа данных CarBadRepository
 
 */
+
+bool isGoodRepo = false;
+
+builder.Services.AddScoped<ICarRepository>((serviceProvider) => {
+    isGoodRepo = !isGoodRepo;
+    return isGoodRepo ? new CarGoodRepository() : new CarBadRepository();
+});
+
+var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapControllers();
+
+app.Run();

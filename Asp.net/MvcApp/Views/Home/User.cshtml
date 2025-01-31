@@ -1,0 +1,12 @@
+@{
+    HttpClient httpClient = new HttpClient();
+
+    const string endpointUrl = "http://localhost:7000/api/User/100";
+    var user = await httpClient.GetFromJsonAsync<User>(endpointUrl);
+}
+
+<h1>
+    <p><b>Id: </b>@user?.Id</p>
+    <p><b>Name: </b>@user?.Name</p>
+    <p><b>Surname: </b>@user?.Surname</p>
+</h1>

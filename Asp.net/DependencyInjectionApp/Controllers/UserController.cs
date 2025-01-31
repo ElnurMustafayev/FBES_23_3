@@ -40,7 +40,12 @@ public class UserController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(200, Type = typeof(User))]
     public ActionResult<User> GetUserById(int id) {
-        return Ok();
+        return Ok(new User {
+            Id = id,
+            Name = "Bob",
+            Surname = "Marley"
+        });
+
         // var foundUser = userRepository.GetUserById(id);
         // // var statusCode = foundUser != null 
         // //     ? HttpStatusCode.OK 
