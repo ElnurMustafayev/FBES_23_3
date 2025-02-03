@@ -40,6 +40,10 @@ public class UserController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(200, Type = typeof(User))]
     public ActionResult<User> GetUserById(int id) {
+        if(id > 500) {
+            return NotFound();
+        }
+
         return Ok(new User {
             Id = id,
             Name = "Bob",

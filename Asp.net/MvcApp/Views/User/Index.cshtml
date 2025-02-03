@@ -1,0 +1,47 @@
+@inject IUserRepository userRepository
+
+@{
+    var users = userRepository.GetAllUsers();
+}
+
+<h2>Create new user</h2>
+
+<form class="row g-3" method="post" action="/User">
+    <div class="mb-1">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="mb-1">
+        <label for="surname" class="form-label">Surname</label>
+        <input type="text" class="form-control" id="surname" name="surname">
+    </div>
+
+    <button class="btn btn-success">Create</button>
+</form>
+
+<br>
+
+<h2>All users</h2>
+@if(users == null || users.Any() == false) {
+    <h3>...</h3>
+}
+else {
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var user in users) {
+                <tr>
+                    <th><a href="/User/@user.Id">@user.Id</a></th>
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

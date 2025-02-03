@@ -1,13 +1,16 @@
+using MvcApp.Repositories;
+using MvcApp.Repositories.Base;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IUserRepository, UserRamRepository>();
 
 var app = builder.Build();
 
 app.UseExceptionHandler("/Home/Error");
 
 app.UseStaticFiles();
-
 app.UseRouting();
 
 

@@ -1,0 +1,12 @@
+@model User?
+
+@if(Model != null) {
+    <h1>
+        <p><b>Id: </b>@Model?.Id</p>
+        <p><b>Name: </b>@Model?.Name</p>
+        <p><b>Surname: </b>@Model?.Surname</p>
+    </h1>
+}
+else {
+    <h1 class="danger">User not found!</h1>
+}
