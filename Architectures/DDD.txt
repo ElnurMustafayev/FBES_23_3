@@ -1,0 +1,56 @@
+user, product
+
+/Models
+	User.cs
+	UserId.cs
+	DetailedUser.cs
+	Product.cs
+/Controllers
+	UserController.cs
+	ProductController.cs
+/Services
+	/Base
+		IUserService.cs
+		IProductService.cs
+	UserService.cs
+	ProductService.cs
+/Repositories
+	/Base
+		IUserRepository.cs
+		IProductRepository.cs
+	UserRepository.cs
+	ProductFileRepository.cs
+	ProductSqlRepository.cs
+
+
+
+/User
+	/Models
+		User.cs
+		UserId.cs
+		DetailedUser.cs
+	/Controllers
+		UserController.cs
+	/Services
+		/Base
+			IUserService.cs
+		UserService.cs
+	/Repotisories
+		/Base
+			IUserRepository.cs
+		UserRepository.cs
+
+/Product
+	/Models
+		Product.cs
+	/Controllers
+		ProductController.cs
+	/Services
+		/Base
+			IProductService.cs
+		ProductService.cs
+	/Repotisories
+		/Base
+			IProductRepository.cs
+		ProductFileRepository.cs
+		ProductSqlRepository.cs

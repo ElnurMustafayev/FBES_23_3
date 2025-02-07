@@ -32,6 +32,7 @@ else {
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +41,7 @@ else {
                     <th><a href="/User/@user.Id">@user.Id</a></th>
                     <td>@user.Name</td>
                     <td>@user.Surname</td>
+                    <td><button class="btn btn-danger" onclick="() => DeleteUser(@Model?.Id)">delete</button></td>
                 </tr>
             }
         </tbody>

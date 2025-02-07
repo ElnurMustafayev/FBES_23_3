@@ -32,7 +32,6 @@ public class UserRamRepository : IUserRepository
             return false;
         }
         
-        userToUpdate.Id = changedUser.Id;
         userToUpdate.Name = changedUser.Name;
         userToUpdate.Surname = changedUser.Surname;
         return true;

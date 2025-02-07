@@ -29,6 +29,15 @@ public class UserController : Controller
     }
 
     [Route("{id:int}")]
+    [HttpPut]
+    public IActionResult UpdateUser(int id, [FromBody] User changedUser) {
+        bool changed = this.userRepository.UpdateUser(id, changedUser);
+
+        return base.Ok();
+    }
+
+    [Route("{id:int}")]
+    [HttpGet]
     public IActionResult GetUserById(int id)
     {
         //base.ViewBag.IdToSearch = id

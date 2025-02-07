@@ -1,12 +1,56 @@
 @model User?
 
-@if(Model != null) {
-    <h1>
-        <p><b>Id: </b>@Model?.Id</p>
-        <p><b>Name: </b>@Model?.Name</p>
-        <p><b>Surname: </b>@Model?.Surname</p>
-    </h1>
+@if (Model != null)
+{
+    <form id="myForm" class="row g-3">
+        <div class="mb-1">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="@Model.Name">
+        </div>
+        <div class="mb-1">
+            <label for="surname" class="form-label">Surname</label>
+            <input type="text" class="form-control" id="surname" name="surname" value="@Model.Surname">
+        </div>
+
+        <button class="btn btn-primary">Change</button>
+    </form>
 }
-else {
+else
+{
     <h1 class="danger">User not found!</h1>
 }
+
+<script>
+    document.getElementById('myForm')
+        .addEventListener('submit', 
+            async function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const surname = document.getElementById('surname').value;
+
+                const data = {
+                    name: name,
+                    surname: surname
+                };
+
+                try {
+                    const response = await fetch('http://localhost:9000/User/@Model?.Id', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        window.location.replace('http://localhost:9000/User');
+                    } 
+                    else {
+                        console.error(response);
+                    }
+                } catch (error) {
+                    console.error('Request failed', error);
+                }
+            });
+</script>
