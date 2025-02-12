@@ -12,32 +12,25 @@ using MiddlewareApp.Services.Base;
 public class TestController : ControllerBase
 {
     private readonly ITestService testService;
+    private readonly IHttpLogger logger;
 
-    public TestController(ITestService testService)
+    public TestController(ITestService testService, IHttpLogger logger)
     {
+        this.logger = logger;
         this.testService = testService;
     }
 
     [HttpGet]
     public async Task<ActionResult> Method(string? text) {
-        try {
-            this.testService.DontPutNull(text);
-            await this.testService.GoToDatabaseAsync();
-            this.testService.NeverCrashes();
+        this.testService.DontPutNull(text);
+        await this.testService.GoToDatabaseAsync();
+        this.testService.NeverCrashes();
 
-            return base.Ok();
-        }
-        catch(ArgumentNullException ex) {
-            return base.StatusCode(
-                (int)HttpStatusCode.BadRequest,
-                new BadRequestResponse(message: ex.Message) {
-                    Parameter = ex.ParamName
-                });
-        }
-        catch(Exception) {
-            return base.StatusCode(
-                (int)HttpStatusCode.InternalServerError,
-                new InternalServerErrorResponse(message: "Internal server error"));
-        }
+        return base.Ok();
+    }
+
+    [HttpGet("[action]")]
+    public async Task<ActionResult> Call(string? text) {
+        throw new DivideByZeroException();
     }
 }

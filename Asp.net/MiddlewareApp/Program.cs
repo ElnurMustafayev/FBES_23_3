@@ -1,9 +1,10 @@
 using MiddlewareApp.Middlewares;
 using MiddlewareApp.Options;
+using MiddlewareApp.Repositories;
+using MiddlewareApp.Repositories.Base;
 using MiddlewareApp.Services;
 using MiddlewareApp.Services.Base;
 
-// TODO: add logging
 // TODO: default exceptions handling
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IHttpLogRepository, HttpLogSqlRepository>();
+builder.Services.AddScoped<IHttpLogger, HttpLogger>();
 
 builder.Services.Configure<DatabaseOptions>(options => {
     var connectionString = builder.Configuration.GetConnectionString("MyDatabase");
@@ -22,9 +26,11 @@ builder.Services.AddScoped<ITestService, TestService>();
 
 var app = builder.Build();
 
-app.UseMiddleware<MyMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
+
+app.UseMiddleware<LoggingMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();
