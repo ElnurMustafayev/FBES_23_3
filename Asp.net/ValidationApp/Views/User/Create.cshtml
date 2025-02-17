@@ -1,0 +1,28 @@
+@model User
+
+<form method="post" asp-controller="User" asp-action="CreateNewUser">
+    <div asp-validation-summary="All"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Surname" class="form-label">Surname</label>
+        <input asp-for="Surname" class="form-control">
+        <span class="text-danger" asp-validation-for="Surname"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label">Age</label>
+        <input asp-for="Age" class="form-control">
+        <span class="text-danger" asp-validation-for="Age"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+@* @section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+} *@
