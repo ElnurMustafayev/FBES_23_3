@@ -1,0 +1,44 @@
+@using FluentValidationApp.Models
+@model User
+
+@{
+    IEnumerable<ValidationErrorItem>? validationErrors = null;
+    var validationErrorsObject = base.ViewData["validation_errors"];
+
+    if(validationErrorsObject is IEnumerable<ValidationErrorItem>) {
+        validationErrors = validationErrorsObject as IEnumerable<ValidationErrorItem>;
+    }
+}
+
+
+@if(validationErrors != null) {
+    <ul>
+        @foreach(var validationErrorItem in validationErrors) {
+            <li>
+                <b>@validationErrorItem.Property</b> <span>@validationErrorItem.Message</span>
+            </li>
+        }
+    </ul>
+}
+
+<form method="post" asp-controller="User" asp-action="CreateNewUser">
+    <div asp-validation-summary="All"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Surname" class="form-label">Surname</label>
+        <input asp-for="Surname" class="form-control">
+        <span class="text-danger" asp-validation-for="Surname"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label">Age</label>
+        <input asp-for="Age" class="form-control">
+        <span class="text-danger" asp-validation-for="Age"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
