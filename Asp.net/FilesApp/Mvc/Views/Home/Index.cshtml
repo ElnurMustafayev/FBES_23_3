@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form enctype="multipart/form-data" action="http://localhost:7000/api/user" method="post">
+    <div>
+        <label for="mail" class="form-label">Mail</label>
+        <input id="mail" class="form-control" name="mail" type="text">
+    </div>
+
+    <div>
+        <label for="name" class="form-label">Name</label>
+        <input id="name" class="form-control" name="name" type="text">
+    </div>
+
+    <div>
+        <label for="avatar" class="form-label">Avatar</label>
+        <input id="avatar" class="form-control" name="avatar" type="file">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
