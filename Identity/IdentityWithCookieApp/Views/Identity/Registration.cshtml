@@ -1,0 +1,38 @@
+@model User
+
+<div class="container mt-5">
+    <h2>User Registration</h2>
+    <form asp-action="Registration" method="post">
+        <div asp-validation-summary="All"></div>
+
+        <div class="mb-3">
+            <label for="Name" class="form-label">First Name</label>
+            <input asp-for="Name" class="form-control" id="Name" placeholder="Enter your first name" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Surname" class="form-label">Last Name</label>
+            <input asp-for="Surname" class="form-control" id="Surname" placeholder="Enter your last name" required />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Mail" class="form-label">Email Address</label>
+            <input asp-for="Mail" class="form-control" id="Mail" placeholder="Enter your email" required />
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Enter your password" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

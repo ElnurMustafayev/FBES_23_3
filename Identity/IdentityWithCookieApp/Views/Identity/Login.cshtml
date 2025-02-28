@@ -1,0 +1,26 @@
+@model LoginDto
+
+<div class="container mt-5">
+    <h2>User Login</h2>
+    <form asp-action="Login" method="post">
+        <div asp-validation-summary="All"></div>
+
+        <div class="mb-3">
+            <label for="Login" class="form-label">Username</label>
+            <input asp-for="Login" class="form-control" id="Login" placeholder="Enter your username" required />
+            <span asp-validation-for="Login" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Enter your password" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
