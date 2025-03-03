@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using IdentityWithCookieApp.Models;
 using IdentityWithCookieApp.EntityFramework;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace IdentityWithCookieApp.Controllers;
 
@@ -25,8 +27,19 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize]
     public IActionResult MyInfo()
     {
+        var user = new User {
+            Id = int.Parse(base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value!),
+            Name = base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Name)?.Value!,
+            Surname = base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Surname)?.Value!,
+            Mail = base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email)?.Value!,
+        };
+
+        return base.View(user);
+
+        /*
         var identityCookieValueHash = base.HttpContext.Request.Cookies["Identity"];
 
         if(string.IsNullOrWhiteSpace(identityCookieValueHash)) {
@@ -48,5 +61,15 @@ public class HomeController : Controller
 
         base.HttpContext.Response.Cookies.Delete("Identity");
         return base.RedirectToAction("Login", "Identity");
+        */
+    }
+
+    [Authorize]
+    public IActionResult Secret() {
+        var roles = base.User.Claims
+            .Where(claim => claim.Type == ClaimTypes.Role)
+            .Select(claim => claim.Value);
+
+        return Ok(roles);
     }
 }

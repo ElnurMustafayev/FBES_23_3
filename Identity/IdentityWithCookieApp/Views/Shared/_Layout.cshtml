@@ -1,5 +1,5 @@
 ﻿@{
-    var identityCookieValue = base.Context.Request.Cookies["Identity"];
+    var identityCookieValue = base.Context.Request.Cookies[".AspNetCore.Cookies"];
     bool isAuthenticated = string.IsNullOrWhiteSpace(identityCookieValue) == false;
 }
 
@@ -29,6 +29,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Secret">Secret</a>
                         </li>
                         @if(isAuthenticated) {
                             <li class="nav-item">

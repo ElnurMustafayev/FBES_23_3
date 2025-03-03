@@ -5,6 +5,10 @@
     <form asp-action="Login" method="post">
         <div asp-validation-summary="All"></div>
 
+        @if(base.ViewData["returnUrl"] != null) {
+            <input class="form-control" name="returnUrl" value="@base.ViewData["returnUrl"]" hidden/>
+        }
+
         <div class="mb-3">
             <label for="Login" class="form-label">Username</label>
             <input asp-for="Login" class="form-control" id="Login" placeholder="Enter your username" required />
