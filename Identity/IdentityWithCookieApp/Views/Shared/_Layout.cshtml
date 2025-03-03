@@ -1,6 +1,5 @@
 ﻿@{
-    var identityCookieValue = base.Context.Request.Cookies[".AspNetCore.Cookies"];
-    bool isAuthenticated = string.IsNullOrWhiteSpace(identityCookieValue) == false;
+    bool isAuthenticated = base.User.Identity?.IsAuthenticated ?? false;
 }
 
 <!DOCTYPE html>
