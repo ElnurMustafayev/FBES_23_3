@@ -7,4 +7,5 @@ public class User
     public required string Surname { get; set; }
     public required string Mail { get; set; }
     public string? Password { get; set; }
+    //public List<UsersRoles> UsersRoles { get; set; }
 }

@@ -64,12 +64,9 @@ public class HomeController : Controller
         */
     }
 
-    [Authorize]
-    public IActionResult Secret() {
-        var roles = base.User.Claims
-            .Where(claim => claim.Type == ClaimTypes.Role)
-            .Select(claim => claim.Value);
-
-        return Ok(roles);
+    //[Authorize("MyPolicy")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult GetAllUsers() {
+        return View("AllUsers");
     }
 }

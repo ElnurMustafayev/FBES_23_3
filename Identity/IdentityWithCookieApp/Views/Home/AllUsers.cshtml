@@ -1,0 +1,31 @@
+@inject MyDbContext dbContext;
+
+@{
+    ViewData["Title"] = "AllUsers";
+
+    //var users = dbContext.Users.ToList();
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Mail</td>
+            </tr>
+        }
+    </tbody>
+</table> *@
