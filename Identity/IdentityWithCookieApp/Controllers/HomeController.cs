@@ -5,6 +5,7 @@ using IdentityWithCookieApp.EntityFramework;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using IdentityWithCookieApp.Enums;
 
 namespace IdentityWithCookieApp.Controllers;
 
@@ -64,8 +65,13 @@ public class HomeController : Controller
         */
     }
 
-    //[Authorize("MyPolicy")]
-    [Authorize(Roles = "Admin")]
+    // [Authorize("MyPolicy")]
+    // [Authorize(Roles = $"{nameof(Roles.Admin)},{nameof(Roles.User)}")] // OR
+
+    // [Authorize(Roles = nameof(Roles.Admin))] // AND
+    // [Authorize(Roles = nameof(Roles.User))]
+
+    [Authorize(policy: "MyPolicy")]
     public IActionResult GetAllUsers() {
         return View("AllUsers");
     }

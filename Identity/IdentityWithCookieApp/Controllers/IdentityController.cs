@@ -55,7 +55,10 @@ public class IdentityController : Controller
             };
             await this.userManager.CreateAsync(user, newUser.Password!);
 
-            await this.userManager.AddToRolesAsync(user, new List<string> {"Admin", "User"});
+            await this.userManager.AddToRolesAsync(user, new List<string> {
+                nameof(Roles.Admin),
+                nameof(Roles.User),
+            });
 
             //await dbContext.Users.AddAsync(newUser);
             //await dbContext.SaveChangesAsync();
@@ -93,7 +96,18 @@ public class IdentityController : Controller
     [HttpPost]
     public async Task<ActionResult> Login([FromForm] LoginDto dto) {
         var foundUser = await this.userManager.FindByEmailAsync(dto.Login);
-        await signInManager.PasswordSignInAsync(foundUser!, dto.Password, true, false);
+
+        if(foundUser == null) {
+            base.TempData["Error"] = "Incorrect login or password";
+            return base.RedirectToAction(actionName: nameof(Login));
+        }
+
+        var signInResult = await signInManager.PasswordSignInAsync(foundUser, dto.Password, true, true);
+
+        if(signInResult.Succeeded == false) {
+            base.TempData["Error"] = "Incorrect login or password";
+            return base.RedirectToAction(actionName: nameof(Login));
+        }
 
         //var foundUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Mail == dto.Login && u.Password == dto.Password);
 
@@ -149,7 +163,9 @@ public class IdentityController : Controller
 
     [HttpGet]
     public async Task<ActionResult> Logout([FromForm] LoginDto dto) {
-        await base.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        await signInManager.SignOutAsync();
+
+        //await base.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         /*
         base.HttpContext.Response.Cookies.Delete("Identity");

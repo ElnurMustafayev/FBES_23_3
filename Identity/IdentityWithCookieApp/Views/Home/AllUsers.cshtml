@@ -6,6 +6,10 @@
     //var users = dbContext.Users.ToList();
 }
 
+@foreach(var claim in base.User.Claims) {
+    <p>@claim.Type: @claim.Value</p>
+}
+
 <h1>@ViewData["Title"]</h1>
 
 @* <table class="table table-striped">

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using IdentityWithCookieApp.EntityFramework;
 using IdentityWithCookieApp.Enums;
 using IdentityWithCookieApp.Models;
@@ -20,7 +21,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {})
 
 builder.Services.AddDataProtection();
 
-/*
+
 builder.Services.AddAuthentication(defaultScheme: CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(
         authenticationScheme: CookieAuthenticationDefaults.AuthenticationScheme,
@@ -28,9 +29,19 @@ builder.Services.AddAuthentication(defaultScheme: CookieAuthenticationDefaults.A
         {
             options.LoginPath = "/Identity/Login";
         });
-*/
 
-builder.Services.AddAuthorization();
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy(
+        name: "MyPolicy",
+        configurePolicy: policyBuilder => {
+            policyBuilder
+                .RequireRole("Admin")
+                .RequireClaim(ClaimTypes.Name, "Bob", "Ann", "John", "Elnur")
+                .RequireRole("User");
+        }
+    );
+});
 
 var app = builder.Build();
 
