@@ -1,0 +1,16 @@
+[Unit]
+Description=Example .NET Web App running on Linux
+
+[Service]
+WorkingDirectory=/var/www/myback
+ExecStart=/usr/bin/dotnet /var/www/myback/MyWebApi.WebApi.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-example
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_NOLOGO=true
+
+[Install]
+WantedBy=multi-user.target
