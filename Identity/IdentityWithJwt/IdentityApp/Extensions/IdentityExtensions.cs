@@ -2,8 +2,12 @@ namespace IdentityApp.Extensions;
 
 using IdentityApp.Data;
 using IdentityApp.Defaults;
+using IdentityApp.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 public static class IdentityExtensions
 {
@@ -25,5 +29,36 @@ public static class IdentityExtensions
 
         await roleManager.CreateAsync(new IdentityRole(UserRoleDefaults.User));
         await roleManager.CreateAsync(new IdentityRole(UserRoleDefaults.Admin));
+    }
+
+    public static void InitAuth(this IServiceCollection services) {
+        var jwtOptions = services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value;
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+            .AddJwtBearer(options =>
+            {
+                var keyStr = jwtOptions.SignatureKey;
+                var keyBytes = System.Text.Encoding.ASCII.GetBytes(keyStr);
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtOptions.Issuer,
+
+                    ValidateAudience = true,
+                    ValidAudience = jwtOptions.Audience,
+
+                    ValidateLifetime = true,
+
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
+                };
+            });
     }
 }
