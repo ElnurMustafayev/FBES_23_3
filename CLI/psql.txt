@@ -1,0 +1,6 @@
+psql --host=<host> --dbname=<db_name> --user=<username>
+
+\l
+\d
+\dt
+\d <table_name>

@@ -1,0 +1,18 @@
+docker -v - проверить версию докера
+docker pull <image_name>:<tag_name> - скачать докер образ
+docker run <image_name> - создать и запустить докер контейнер на основе образа
+docker run -e "<ENV_VAR_NAME>=<ENV_VAR_VALUE>" <image_name> - закинуть переменные среды в контейнер
+docker run --name <new_container_name> <image_name> - задать имя для будущего контейнера
+docker run -d <image_name> - запустить контейнер в фоновом режиме (не блокируя активную терминальную строку)
+
+docker images - показать на экран все установленные образы
+docker ps -a - показать на экран все контейнеры
+docker ps - показать на экран все запущенные контейнеры
+
+docker exec -it <container> <shell_name> - зайти внутрь рабочего контейнера
+
+docker logs <container_name> - показать логи контейнера
+
+docker stop <container_name> - остановить рабочий контейнер
+
+docker rm <container_name> - удалить нерабочий контейнер
