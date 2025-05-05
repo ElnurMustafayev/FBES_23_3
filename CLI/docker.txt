@@ -16,3 +16,5 @@ docker logs <container_name> - показать логи контейнера
 docker stop <container_name> - остановить рабочий контейнер
 
 docker rm <container_name> - удалить нерабочий контейнер
+
+docker build <dockerfile_directory> - создать докер образ на основе Dockerfile файла в указанной директории

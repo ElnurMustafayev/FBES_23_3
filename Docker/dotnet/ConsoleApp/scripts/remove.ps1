@@ -1,0 +1,3 @@
+docker stop consoleapp_container
+docker rm consoleapp_container
+docker rmi consoleapp_image
