@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: mypostgres
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=bob
+      - POSTGRES_PASSWORD=Secret12345!
+      - POSTGRES_DB=ProductsDb
+    volumes:
+      - mypostgresvolume:/var/lib/postgresql/data
+    networks:
+      - mybridgenetwork
+    restart: always
+
+  webapi:
+    image: mywebapi:1
+    build:
+      context: .
+      dockerfile: webapi.Dockerfile
+    container_name: mywebapi
+    expose:
+      - 80
+    ports:
+      - 7000:80
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - mybridgenetwork
+    depends_on:
+      - postgres
+    restart: always
+
+networks:
+  mybridgenetwork:
+    driver: bridge
+
+volumes:
+  mypostgresvolume:
