@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager navigationManager
+@inject ILocalStorageService localStorageService
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-success" @onclick=LogoutAsync>Logout</button>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/Identity/Login">Login</a>
+                    <a href="/Identity/Registration">Registration</a>
+                </NotAuthorized>
+            </AuthorizeView>
+
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    public async Task LogoutAsync() {
+        await localStorageService.RemoveItemAsync("jwt");
+        await localStorageService.RemoveItemAsync("refresh");
+
+        navigationManager.NavigateTo("/Identity/Login", true);
+    }
+}
